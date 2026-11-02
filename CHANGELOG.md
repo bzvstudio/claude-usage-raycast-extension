@@ -1,5 +1,5 @@
 # Claude Usage Ring Changelog
 
-## [Initial Version] - 2026-11-02
+## [Initial Version] - {PR_MERGE_DATE}
 
 - Menu bar ring for the 5-hour and weekly Claude subscription limits

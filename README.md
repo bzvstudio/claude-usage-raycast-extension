@@ -1,6 +1,6 @@
 # Claude Usage Ring
 
-A private Raycast menu bar extension that shows your **Claude subscription usage** as a small ring in the macOS menu bar:
+A Raycast menu bar extension that shows your **Claude subscription usage** as a small ring in the macOS menu bar:
 
 - **5-hour session limit** (default)
 - **Weekly (7-day) limit**, or both as concentric rings
@@ -11,15 +11,9 @@ The numbers come from the same source as `/usage` in Claude Code. They are not e
 
 ## Install
 
-```bash
-cd claude-usage-ring
-npm install
-npm run dev     # registers the extension in Raycast; it stays installed after you stop this
-```
+Install **Claude Usage Ring** from the Raycast Store, then:
 
-Then in Raycast:
-
-1. Search **Claude Usage** and run it once. This activates the menu bar item and the 2-minute background refresh.
+1. Search **Claude Usage** in Raycast and run it once. This activates the menu bar item and the 2-minute background refresh.
 2. If macOS asks whether Raycast may access the `Claude Code-credentials` Keychain item, click **Always Allow**.
 
 You need to be logged in to Claude Code (`claude` → `/login`) with a Pro, Max or Team subscription.
@@ -63,7 +57,7 @@ Background runs never show toasts. **Refresh Now** (⌘R) ignores backoff and sh
 ## Caveats
 
 - **The usage endpoint is undocumented.** It may change or disappear at any time. If that happens, the ring keeps the last value and shows "Usage format changed". The data source sits behind a `UsageSource` interface, so a Claude Code status-line-based source can be added later.
-- **Terms of Service.** Anthropic restricts the use of subscription OAuth tokens in third-party products. This is a private, read-only, personal tool that makes no inference calls. Don't publish it to the Raycast Store, and don't distribute builds that read other people's tokens.
+- **Not affiliated with Anthropic.** The extension only reads usage numbers with your own local Claude Code login. It makes no model requests, never refreshes or stores the token, and sends it nowhere except `api.anthropic.com`.
 - macOS hides menu bar items when the menu bar is crowded. If the ring vanishes, free up space or use a menu bar manager.
 
 ## Troubleshooting
