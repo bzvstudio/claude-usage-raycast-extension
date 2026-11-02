@@ -1,4 +1,4 @@
-# Claude Usage Ring
+# Claude Code Usage
 
 Shows your **Claude subscription usage** as a small ring in the macOS menu bar:
 

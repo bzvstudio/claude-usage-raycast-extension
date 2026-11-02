@@ -1,4 +1,4 @@
-# Claude Usage Ring Changelog
+# Claude Code Usage Changelog
 
 ## [Initial Version] - {PR_MERGE_DATE}
 
