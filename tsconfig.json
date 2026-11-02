@@ -3,8 +3,8 @@
   "include": ["src/**/*", "test/**/*", "raycast-env.d.ts"],
   "compilerOptions": {
     "lib": ["ES2023", "DOM"],
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "preserve",
+    "moduleResolution": "bundler",
     "target": "ES2023",
     "strict": true,
     "isolatedModules": true,
@@ -13,7 +13,6 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
     "resolveJsonModule": true,
-    "ignoreDeprecations": "6.0",
     "types": ["node"]
   }
 }

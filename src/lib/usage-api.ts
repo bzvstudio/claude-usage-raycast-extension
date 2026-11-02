@@ -16,10 +16,6 @@ export class UsageError extends Error {
   }
 }
 
-/**
- * A place usage numbers can come from. v1 has only the OAuth endpoint; a v2 "status line file"
- * source can implement the same interface. `load` throws CredentialsError | UsageError.
- */
 export interface UsageSource {
   id: string;
   load(signal?: AbortSignal): Promise<{ usage: Usage; plan?: PlanInfo }>;
@@ -34,7 +30,6 @@ export async function fetchUsage(token: string, signal?: AbortSignal, fetchImpl:
       headers: {
         Authorization: `Bearer ${token}`,
         "anthropic-beta": "oauth-2025-04-20",
-        "Content-Type": "application/json",
         "User-Agent": "claude-usage-ring/1.0",
       },
       signal: signal ?? AbortSignal.timeout(10_000),
@@ -89,7 +84,6 @@ export function parseWindow(w: unknown): UsageWindow | null {
   };
 }
 
-/** The OAuth endpoint source: re-reads credentials on every call, never caches the token. */
 export function oauthSource(credentialsSource: "keychain" | "file", fetchImpl?: FetchLike): UsageSource {
   return {
     id: "oauth",

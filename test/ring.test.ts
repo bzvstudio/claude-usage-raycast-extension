@@ -20,33 +20,33 @@ describe("arcLength", () => {
 
 describe("ringSvg", () => {
   it("0% renders only the track", () => {
-    const s = ringSvg({ inner: { pct: 0, color: "#000" }, fg: "#000" });
+    const s = ringSvg({ inner: { pct: 0, color: "#000" } }, "#000");
     expect(s.match(/<circle/g)).toHaveLength(1);
   });
   it("partial arc starts at 12 o'clock with round caps", () => {
-    const s = ringSvg({ inner: { pct: 40, color: "#000" }, fg: "#000" });
+    const s = ringSvg({ inner: { pct: 40, color: "#000" } }, "#000");
     expect(s).toContain('transform="rotate(-90 18 18)"');
     expect(s).toContain('stroke-linecap="round"');
   });
   it("full ring has no dasharray", () => {
-    const s = ringSvg({ inner: { pct: 100, color: RED }, fg: "#000" });
+    const s = ringSvg({ inner: { pct: 100, color: RED } }, "#000");
     expect(s).not.toContain("dasharray");
     expect(s).toContain(RED);
   });
   it("dual has two tracks", () => {
-    const s = ringSvg({ outer: { pct: 10, color: "#000" }, inner: { pct: 10, color: "#000" }, fg: "#000" });
+    const s = ringSvg({ outer: { pct: 10, color: "#000" }, inner: { pct: 10, color: "#000" } }, "#000");
     expect(s).toContain('r="15"');
     expect(s).toContain('r="9"');
   });
   it("dim and error", () => {
-    expect(ringSvg({ inner: { pct: 5, color: "#000" }, fg: "#000", dim: true })).toContain('opacity="0.5"');
-    expect(ringSvg({ fg: "#000", error: true })).toContain("<rect");
+    expect(ringSvg({ inner: { pct: 5, color: "#000" }, dim: true }, "#000")).toContain('opacity="0.5"');
+    expect(ringSvg({ error: true }, "#000")).toContain("<rect");
   });
 });
 
 describe("ringIcon", () => {
-  it("resolves the fg token per appearance", () => {
-    const i = ringIcon({ inner: { pct: 30, color: "fg" } });
+  it("uses the foreground colour of each appearance when the arc has no colour", () => {
+    const i = ringIcon({ inner: { pct: 30 } });
     expect(i.light.startsWith("data:image/svg+xml;base64,")).toBe(true);
     expect(decode(i.light)).toContain('stroke="#000000" stroke-width="4" stroke-linecap');
     expect(decode(i.dark)).toContain('stroke="#FFFFFF" stroke-width="4" stroke-linecap');
@@ -55,8 +55,8 @@ describe("ringIcon", () => {
 
 describe("colorFor", () => {
   it.each([
-    [0, "fg"],
-    [59.9, "fg"],
+    [0, undefined],
+    [59.9, undefined],
     [60, AMBER],
     [85, AMBER],
     [85.1, RED],

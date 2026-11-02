@@ -8,7 +8,6 @@ const pExecFile = promisify(execFile);
 
 export type Creds = {
   accessToken: string;
-  /** epoch ms */
   expiresAt?: number;
   subscriptionType?: string;
   rateLimitTier?: string;
@@ -26,10 +25,6 @@ export class CredentialsError extends Error {
   }
 }
 
-/**
- * Reads Claude Code's OAuth login. READ-ONLY: never refreshes or writes, because rotating the
- * refresh token would sign Claude Code out. The token is never cached, logged or displayed.
- */
 export async function readCredentials(source: "keychain" | "file"): Promise<Creds> {
   const raw = source === "keychain" ? await fromKeychain() : await fromFile();
   return parseCredentials(raw);
@@ -56,7 +51,6 @@ export function parseCredentials(raw: string): Creds {
 
 async function fromKeychain(): Promise<string> {
   try {
-    // Absolute path + args array: Raycast's PATH can be minimal, and no shell is involved.
     const { stdout } = await pExecFile(
       "/usr/bin/security",
       ["find-generic-password", "-s", "Claude Code-credentials", "-w"],
@@ -64,8 +58,6 @@ async function fromKeychain(): Promise<string> {
     );
     return stdout.trim();
   } catch (e) {
-    // exit 44 = item not found; anything else (51, 128, "User interaction is not allowed") = denied.
-    // Deliberately do not include stdout/stderr in the message.
     const code = (e as { code?: unknown })?.code;
     if (code === 44) throw new CredentialsError("not_found", "Keychain item not found");
     throw new CredentialsError("denied", `Keychain access failed (code ${String(code)})`);

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { formatAgo, formatPercent, formatPlan, formatReset } from "../src/lib/format";
 
-const now = new Date(2026, 10, 2, 14, 16, 0).getTime(); // Mon 2 Nov 2026 14:16 local
+const now = new Date(2026, 10, 2, 14, 16, 0).getTime();
 
 describe("formatReset", () => {
   it("relative under 24h", () => {
@@ -13,6 +13,9 @@ describe("formatReset", () => {
   it("weekday + time at or over 24h", () => {
     expect(formatReset(new Date(2026, 10, 7, 19, 0), now)).toBe("Sat 19:00");
     expect(formatReset(new Date(2026, 10, 3, 14, 16), now)).toBe("Tue 14:16");
+  });
+  it("adds the date from 6 days out, so a same-weekday reset is unambiguous", () => {
+    expect(formatReset(new Date(2026, 10, 9, 12, 0), now)).toBe("Mon 9 Nov 12:00");
   });
   it("past", () => {
     expect(formatReset(new Date(now - 1000), now)).toBe("resetting now");

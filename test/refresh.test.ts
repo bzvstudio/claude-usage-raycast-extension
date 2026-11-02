@@ -102,7 +102,6 @@ describe("refresh", () => {
 
 describe("oauthSource", () => {
   it("expired token skips the network call", async () => {
-    // Uses the file source pointed at a non-existent HOME so we test the not_found path without touching the Keychain.
     const prev = process.env.HOME;
     process.env.HOME = "/nonexistent-home-for-test";
     let called = false;
@@ -110,8 +109,11 @@ describe("oauthSource", () => {
       called = true;
       return new Response("{}");
     });
-    await expect(s.load()).rejects.toMatchObject({ kind: "not_found" });
-    expect(called).toBe(false);
-    process.env.HOME = prev;
+    try {
+      await expect(s.load()).rejects.toMatchObject({ kind: "not_found" });
+      expect(called).toBe(false);
+    } finally {
+      process.env.HOME = prev;
+    }
   });
 });

@@ -44,8 +44,8 @@ describe("deriveView", () => {
     expect(v.dim).toBe(false);
     expect(v.title).toBeUndefined();
     expect(v.tooltip).toBe("Claude: 5h 8% · week 6%");
-    expect(v.rows[0].subtitle).toBe("8%   ·   resets in 2h 15m");
-    expect(v.rows[1].subtitle).toMatch(/^6% {3}· {3}resets Sat 19:00$/);
+    expect(v.rows[0].subtitle).toBe("8% · resets in 2h 15m");
+    expect(v.rows[1].subtitle).toMatch(/^6% · resets Sat 19:00$/);
     expect(v.extraRows).toEqual([]);
     expect(v.planLabel).toBe("Plan: Team · Max 5x");
     expect(v.updatedLabel).toBe("Updated 1 min ago");
@@ -106,7 +106,7 @@ describe("deriveView", () => {
   it("opus/sonnet rows only when non-null", () => {
     const s = snap({ usage: parseUsage({ ...SAMPLE, seven_day_opus: { utilization: 12 } }, NOW) });
     const v = deriveView(s, prefs, NOW);
-    expect(v.extraRows.map((r) => r.title)).toEqual(["Opus weekly"]);
+    expect(v.extraRows.map((r) => r.title)).toEqual(["Opus Weekly"]);
     expect(v.extraRows[0].subtitle).toBe("12%");
   });
 
