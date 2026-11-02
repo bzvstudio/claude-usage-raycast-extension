@@ -1,4 +1,4 @@
-# Claude Code Usage
+# Claude Session Usage
 
 Shows your **Claude subscription usage** as a small ring in the macOS menu bar:
 
@@ -19,15 +19,16 @@ The numbers are the ones Claude Code shows with `/usage`. They are not estimates
 
 1. Run **Connect Claude Code** and press ↵.
 2. Send any message in Claude Code.
-3. Run **Claude Usage Ring** once to activate the menu bar item.
+3. Run **Menu Bar Ring** once to put the ring in the menu bar.
 
 ## Commands
 
 | Command | |
 |---|---|
 | **Connect Claude Code** | Sets up Claude Code to send its usage numbers to the extension. Shows the connection status, and disconnects again. |
-| **Check Claude Usage** | Your usage and reset times in a Raycast window. Actions: Open Usage Page, Refresh Usage (⌘R), Copy Usage Summary (⌘⇧C). |
-| **Claude Usage Ring** | The menu bar ring. Click it for exact percentages, reset countdowns and when the numbers were last updated. |
+| **Check Usage** | Your usage and reset times in a Raycast window. Actions: Open Usage Page, Refresh Usage (⌘R), Copy Usage Summary (⌘⇧C). |
+| **Menu Bar Ring** | The ring in the menu bar. Click it for exact percentages, reset countdowns and when the numbers were last updated. |
+| **Toggle Usage Ring** | Shows or hides the ring in the menu bar. |
 
 ## How it works
 

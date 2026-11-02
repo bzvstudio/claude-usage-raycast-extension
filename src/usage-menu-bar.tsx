@@ -1,5 +1,6 @@
-import { Icon, MenuBarExtra, open, openExtensionPreferences } from "@raycast/api";
+import { environment, Icon, LaunchType, MenuBarExtra, open, openExtensionPreferences } from "@raycast/api";
 import { CONNECT_COMMAND, USAGE_PAGE } from "./lib/constants";
+import { isRingHidden, setRingHidden } from "./lib/ring-visibility";
 import { openCommand, useUsage } from "./lib/use-usage";
 import { deriveView, type Banner } from "./lib/view";
 
@@ -10,6 +11,14 @@ const BANNER_ICONS: Record<Banner["kind"], Icon> = {
 };
 
 export default function Command() {
+  if (isRingHidden()) {
+    if (environment.launchType !== LaunchType.UserInitiated) return null;
+    setRingHidden(false);
+  }
+  return <UsageRing />;
+}
+
+function UsageRing() {
   const { state, error, prefs, isLoading } = useUsage();
   const view = deriveView(state, prefs, Date.now(), error);
 

@@ -3,7 +3,7 @@ import { useCachedPromise } from "@raycast/utils";
 import { EMPTY_STATE, type UsageState } from "../types";
 import { isBridgeConnected } from "./bridge";
 import { readClaudeCodeUsage } from "./claude-code-source";
-import { MENU_BAR_COMMAND } from "./constants";
+import { redrawRing } from "./ring-visibility";
 
 export async function loadUsageState(): Promise<UsageState> {
   const [connected, usage] = await Promise.all([isBridgeConnected(), readClaudeCodeUsage()]);
@@ -11,7 +11,7 @@ export async function loadUsageState(): Promise<UsageState> {
 }
 
 export async function syncMenuBar(): Promise<void> {
-  await launchCommand({ name: MENU_BAR_COMMAND, type: LaunchType.Background }).catch(() => undefined);
+  await redrawRing().catch(() => undefined);
 }
 
 export async function openCommand(name: string): Promise<void> {
